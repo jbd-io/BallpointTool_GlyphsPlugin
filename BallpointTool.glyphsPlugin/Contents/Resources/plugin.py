@@ -1,7 +1,7 @@
 # encoding: utf-8
 ###########################################################################################################
 #
-# BallPen Tool Plugin — v1.0 (with Visual Clamping Feedback and Full UI)
+# Ballpoint pen Tool Plugin — v1.0 (with Visual Clamping Feedback and Full UI)
 #
 ###########################################################################################################
 from __future__ import division, print_function, unicode_literals
@@ -235,7 +235,7 @@ def apply_clamping(beziers):
 # ----------------------------------------------------------
 # Palette intégrée : ToolVariables
 # ----------------------------------------------------------
-class BallPenToolVariables(PalettePlugin):
+class BallpointToolVariables(PalettePlugin):
     dialog = objc.IBOutlet()
     thicknessSlider = objc.IBOutlet()
     smoothingSlider = objc.IBOutlet()
@@ -245,7 +245,7 @@ class BallPenToolVariables(PalettePlugin):
     smoothing = 6
     @objc.python_method
     def settings(self):
-        self.name = Glyphs.localize({'en': 'Ballpen settings','fr': 'Paramètres du stylo','de': 'Kugelschreiber-Einstellungen','es': 'Ajustes del boli','zh': '笔设置','ja': 'ペンの設定','pt': 'Configurações da caneta','it': 'Impostazioni della penna','nl': 'Peninstellingen','ko': '펜 설정','ru': 'Настройки пера',})
+        self.name = Glyphs.localize({'en': 'Ballpoint settings','fr': 'Paramètres du stylo','de': 'Kugelschreiber-Einstellungen','es': 'Ajustes del boli','zh': '笔设置','ja': 'ペンの設定','pt': 'Configurações da caneta','it': 'Impostazioni della penna','nl': 'Peninstellingen','ko': '펜 설정','ru': 'Настройки пера',})
         self.loadNib('IBdialog', __file__)
         self.dialog.setController_(self)
     @objc.python_method
@@ -259,14 +259,14 @@ class BallPenToolVariables(PalettePlugin):
     @objc.IBAction
     def thicknessChanged_(self, sender):
         self.thickness = round(sender.floatValue())
-        if BallPen.instance:
-            BallPen.instance.strokeWidth = self.thickness
+        if Ballpoint.instance:
+            Ballpoint.instance.strokeWidth = self.thickness
         self.update(None)
     @objc.IBAction
     def smoothingChanged_(self, sender):
         self.smoothing = round(sender.floatValue())
-        if BallPen.instance:
-            BallPen.instance.simplifyEpsilon = DEFAULT_SIMPLIFY_EPSILON * (1.25 ** self.smoothing)
+        if Ballpoint.instance:
+            Ballpoint.instance.simplifyEpsilon = DEFAULT_SIMPLIFY_EPSILON * (1.25 ** self.smoothing)
         self.update(None)
     @objc.python_method
     def update(self, sender):
@@ -279,17 +279,17 @@ class BallPenToolVariables(PalettePlugin):
     def __file__(self):
         return __file__
 # ----------------------------------------------------------
-# BallPen Tool principal
+# Ballpoint Tool principal
 # ----------------------------------------------------------
-class BallPen(SelectTool):
+class Ballpoint(SelectTool):
     instance = None
 
     @objc.python_method
     def settings(self):
-        self.name = Glyphs.localize({'en': 'Ballpen','fr': 'Stylo','de': 'Kugelschreiber','es': 'Bolígrafo','zh': '圆珠笔','ja': 'ボールペン','pt': 'Caneta','it': 'Penna','nl': 'Balpen','ko': '볼펜','ru': 'Шариковая ручка',})
+        self.name = Glyphs.localize({'en': 'Ballpoint','fr': 'Stylo','de': 'Kugelschreiber','es': 'Bolígrafo','zh': '圆珠笔','ja': 'ボールペン','pt': 'Caneta','it': 'Penna','nl': 'Balpen','ko': '볼펜','ru': 'Шариковая ручка',})
         # Note: L'icône doit être placée dans le même dossier que le plugin
-        icon_path = os.path.join(os.path.dirname(__file__), "BallPenTool.pdf")
-        highlight_path = os.path.join(os.path.dirname(__file__), "BallPenToolHighlight.pdf")
+        icon_path = os.path.join(os.path.dirname(__file__), "BallpointTool.pdf")
+        highlight_path = os.path.join(os.path.dirname(__file__), "BallpointToolHighlight.pdf")
         
         # Vérification si les fichiers PDF existent (peut échouer si les fichiers .pdf ne sont pas présents)
         if os.path.exists(icon_path):
@@ -303,14 +303,14 @@ class BallPen(SelectTool):
             self.active_image = None
 
         self.tool_bar_image = self.default_image
-        self.toolbarIconName = "BallPenTool"
+        self.toolbarIconName = "BallpointTool"
         self.keyboardShortcut = 'Y'
         self.toolbarPosition = 182
         self.strokeWidth = DEFAULT_STROKE_WIDTH
         self.simplifyEpsilon = DEFAULT_SIMPLIFY_EPSILON
         self.minDistance = MIN_DISTANCE
         self.roundCaps = True
-        BallPen.instance = self
+        Ballpoint.instance = self
 
     @objc.python_method
     def start(self):
@@ -352,8 +352,7 @@ class BallPen(SelectTool):
             self.minDistance = 2.0
         else:
             self.minDistance = 4.0
-
-        view.setNeedsDisplay_(True)
+            view.setNeedsDisplay_(True)
 
     def mouseDragged_(self, theEvent):
         if not self.lastPoint:
@@ -366,7 +365,7 @@ class BallPen(SelectTool):
             view.setNeedsDisplay_(True)
 
     def mouseUp_(self, theEvent):
-        objc.super(BallPen, self).mouseUp_(theEvent)
+        objc.super(Ballpoint, self).mouseUp_(theEvent)
         view = self.editViewController().graphicView()
         if len(self.points) < 2:
             self.points = []

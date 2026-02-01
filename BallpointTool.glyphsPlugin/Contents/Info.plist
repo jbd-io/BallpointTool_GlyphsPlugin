@@ -7,21 +7,21 @@
     <key>CFBundleExecutable</key>
     <string>plugin</string>
     <key>CFBundleIdentifier</key>
-    <string>com.jbd.BallPen</string>
+    <string>com.jbd.Ballpoint</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
-    <string>BallPen</string>
+    <string>Ballpoint</string>
     <key>CFBundleShortVersionString</key>
     <string>1.0</string>
     <key>CFBundleVersion</key>
     <string>1</string>
     <key>NSHumanReadableCopyright</key>
-    <string>Copyright © Jean-Baptiste Dunesme, 2025</string>
+    <string>Copyright © Jean-Baptiste Dunesme, 2026</string>
     <key>Principal Classes</key>
     <array>
-        <string>BallPen</string>
-        <string>BallPenToolVariables</string>
+        <string>Ballpoint</string>
+        <string>BallpointToolVariables</string>
     </array>
     <key>PyMainFileNames</key>
     <array>
