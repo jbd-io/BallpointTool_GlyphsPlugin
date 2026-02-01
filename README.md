@@ -1,6 +1,6 @@
-Ballpoint# 🖊️ BallpointTool (EN)
+# 🖊️ BallpointTool (EN)
 
-![Tool preview](ballpointToolCover.png "BallpointTool cover")
+![Tool preview](BallpointToolCover.png "BallpointTool cover")
 
 This is a plugin for the [Glyphs font editor](http://glyphsapp.com/).  
 It adds a custom Ballpoint (ballpoint pen) Tool to Glyphs, providing a smooth, consistent stroke with a fixed width and rounded stroke endings.
